@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+font-family: Arial, sans-serif;
+margin: 0;
+}
+.container {
+margin-top: 20px;
+width: 300px;
+height: 300px;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 2px dashed #888;
+border-radius: 10px;
+overflow: hidden;
+}
+img {
+max-width: 100%;
+max-height: 100%;
+}
+</style>
+</head>
+<body>
+<h2>Upload and Preview an Image</h2>
+<input type="file" accept="image/*" onchange="previewImage(event)">
+<div class="container" id="previewContainer">No image selected</div>
+<script>
+function previewImage(event) {
+const file = event.target.files[0];
+const previewContainer = document.getElementById('previewContainer');
+if (file && file.type.startsWith('image/')) {
+const reader = new FileReader();
+reader.onload = e => previewContainer.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+reader.readAsDataURL(file);
+} else {
+previewContainer.innerHTML = "File not supported";
+}
+}
+</script>
+</body>
+</html>
